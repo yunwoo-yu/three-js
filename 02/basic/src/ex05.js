@@ -44,11 +44,15 @@ export default function example() {
 
   scene.add(mesh);
 
+  const clock = new THREE.Clock();
+
   function draw() {
+    const time = clock.getElapsedTime();
     // 각도는 Radian을 사용
     // 360도는 2파이
-    mesh.rotation.y += THREE.MathUtils.degToRad(10);
-    mesh.position.y += 0.01;
+    // mesh.rotation.y += THREE.MathUtils.degToRad(1);
+    mesh.rotation.y = 2 * time;
+    mesh.position.y = time;
     if (mesh.position.y > 3) {
       mesh.position.y = 0;
     }
@@ -56,8 +60,8 @@ export default function example() {
     renderer.render(scene, camera);
 
     // window.requestAnimationFrame(draw);
-    renderer.setAnimationLoop(draw);
   }
+  renderer.setAnimationLoop(draw);
 
   function setSize() {
     // 카메라 종횡비 조절
