@@ -57,12 +57,17 @@ export default function example() {
   // 그리기
   const clock = new THREE.Clock();
 
+  mesh.rotation.reorder("YXZ");
+  mesh.rotation.y = THREE.MathUtils.degToRad(45);
+  mesh.rotation.x = THREE.MathUtils.degToRad(20);
+
   function draw() {
     const delta = clock.getDelta();
 
-    mesh.scale.x = 2;
-    mesh.scale.y = 0.5;
-    mesh.scale.set(0.5, 1, 2);
+    // mesh.rotation.x = THREE.MathUtils.degToRad(45);
+    // mesh.rotation.x = Math.PI / 4;
+    // mesh.rotation.x = 1;
+    // mesh.rotation.z += delta;
 
     renderer.render(scene, camera);
     renderer.setAnimationLoop(draw);
