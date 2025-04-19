@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-// ----- 주제: Geometry 기본
+// ----- 주제: Geometry 정점(Vertext) 이용하기
 
 export default function example() {
   // Renderer
@@ -23,7 +23,7 @@ export default function example() {
     0.1,
     1000
   );
-  camera.position.z = 4;
+  camera.position.z = 10;
   scene.add(camera);
 
   // Light
@@ -39,14 +39,24 @@ export default function example() {
   const controls = new OrbitControls(camera, renderer.domElement);
 
   // Mesh
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshStandardMaterial({
-    color: "hotpink",
+  const geometry = new THREE.SphereGeometry(5, 64, 64);
+  const meterial = new THREE.MeshStandardMaterial({
+    color: "orangered",
     side: THREE.DoubleSide,
-    // wireframe: true,
+    flatShading: true,
   });
-  const mesh = new THREE.Mesh(geometry, material);
+  const mesh = new THREE.Mesh(geometry, meterial);
+
   scene.add(mesh);
+
+  const positionArray = geometry.attributes.position.array;
+
+  for (let i = 0; i < positionArray.length; i += 3) {
+    // 정점(Vertext) 한 개의 x,y,z 좌표를 랜덤으로 조정
+    positionArray[i] = positionArray[i] + (Math.random() - 0.5) * 0.2;
+    positionArray[i + 1] = positionArray[i + 1] + (Math.random() - 0.5) * 0.2;
+    positionArray[i + 2] = positionArray[i + 2] + (Math.random() - 0.5) * 0.2;
+  }
 
   // 그리기
   const clock = new THREE.Clock();
