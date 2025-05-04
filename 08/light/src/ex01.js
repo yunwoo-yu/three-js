@@ -24,13 +24,13 @@ export default function example() {
     0.1,
     1000
   );
-  camera.position.y = 1.5;
-  camera.position.z = 4;
+  camera.position.y = 2;
+  camera.position.z = 7;
   scene.add(camera);
 
   // Light
   const ambientLight = new THREE.AmbientLight("white", 0.5);
-  const light = new THREE.DirectionalLight("white", 0.5);
+  const light = new THREE.DirectionalLight("red", 0.5);
   const lightHelper = new THREE.DirectionalLightHelper(light);
 
   light.position.y = 3;
@@ -81,7 +81,10 @@ export default function example() {
   const clock = new THREE.Clock();
 
   function draw() {
-    const delta = clock.getDelta();
+    const time = clock.getElapsedTime();
+
+    light.position.x = Math.cos(time) * 5;
+    light.position.z = Math.sin(time) * 5;
 
     renderer.render(scene, camera);
     renderer.setAnimationLoop(draw);
